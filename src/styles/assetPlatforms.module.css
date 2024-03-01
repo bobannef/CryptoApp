@@ -44,3 +44,15 @@
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 426px) {
+  .searchTitle {
+    font-size: 0.9rem;
+  }
+  .searchInput {
+    font-size: 0.9rem;
+  }
+  .infoText {
+    font-size: 0.9rem;
+  }
+}
