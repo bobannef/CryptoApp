@@ -29,7 +29,7 @@ export const MyCoins = () => {
 
   return (
     <Container>
-      <h1>My Coins</h1>
+      <h1 className="text-dark mb-5 text-center">My Coins</h1>
       {savedCoins.length === 0 ? (
         <h4>No saved coins yet.</h4>
       ) : (

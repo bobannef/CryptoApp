@@ -10,7 +10,7 @@ export const Navbar = () => {
     <nav className="top-nav">
       <div>
         <Link to="/home" className="logo">
-          My App
+          Crypto App
         </Link>
       </div>
       <ul className="nav-list">

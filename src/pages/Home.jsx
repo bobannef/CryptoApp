@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchCryptos } from "../api/cryptoAPI";
+import { Container, Table } from "react-bootstrap";
 
 export const Home = () => {
   const [topCryptos, setTopCryptos] = useState([]);
@@ -18,14 +19,28 @@ export const Home = () => {
   }, []);
 
   return (
-    <div>
-      <ul>
-        {topCryptos.map((crypto) => (
-          <li key={crypto.id}>
-            {crypto.name} - ${crypto.current_price}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container>
+      <h1 className="text-center mb-5 text-dark">Top 10 cryptocurrencies</h1>
+      <div>
+        <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Current Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {topCryptos.map((crypto, index) => (
+              <tr key={crypto.id}>
+                <td>{index + 1}</td>
+                <td>{crypto.name}</td>
+                <td>{crypto.current_price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    </Container>
   );
 };

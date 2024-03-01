@@ -3,6 +3,7 @@ import { fetchCoins } from "../api/cryptoAPI";
 import { Row, Col, Container } from "react-bootstrap";
 import { ConfirmationModal } from "../components/ConfirmationModal";
 import { CryptocurrencyCard } from "../components/CryptocurrencyCard";
+import styles from "../styles/cryptos.module.css";
 
 export const Cryptocurrencies = () => {
   const [totalCoins, setTotalCoins] = useState([]);
@@ -102,66 +103,85 @@ export const Cryptocurrencies = () => {
   const paginatedCoins = coins.slice(0, pageSize * page);
 
   return (
-    <div>
-      <h1>Cryptocurrencies</h1>
-      <input
-        type="text"
-        placeholder="Search Cryptocurrencies"
-        value={searchCoin}
-        onChange={handleSearch}
-      />
-      <div>
+    <Container>
+      <h1 className="text-dark mb-5 text-center">Cryptocurrencies</h1>
+      <div className={styles.searchWrapper}>
         <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="Search Cryptocurrencies"
+          value={searchCoin}
+          onChange={handleSearch}
+        />
+      </div>
+      <div className={styles.priceWrapper}>
+        <input
+          className={styles.priceInput}
           type="number"
           placeholder="Min Price"
           value={minPrice}
           onChange={(e) => setMinPrice(parseFloat(e.target.value))}
         />
         <input
+          className={styles.priceInput}
           type="number"
           placeholder="Max Price"
           value={maxPrice}
           onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
         />
-        <button onClick={handleFilter}>Current Price Filter</button>
+        <button
+          onClick={handleFilter}
+          className="btn btn-secondary text-white font-weight-bold"
+        >
+          Price Filter
+        </button>
+        <button
+          onClick={handleSort}
+          className="btn btn-info text-white font-weight-bold"
+        >
+          Sort {sortingOrder === "asc" ? "A-Z" : "Z-A"}
+        </button>
       </div>
 
-      <button onClick={handleSort}>
-        Sort {sortingOrder === "asc" ? "A-Z" : "Z-A"}
-      </button>
-      <Container>
-        <Row xs={1} md={2} lg={3} xl={4} className="g-3">
-          {paginatedCoins.map((coin) => (
-            <Col key={coin.id}>
-              <CryptocurrencyCard
-                coin={coin}
-                handleSave={() => handleSave(coin.id)}
-              />
-            </Col>
-          ))}
-        </Row>
-      </Container>
+      <Row xs={1} md={2} lg={3} xl={4} className="g-3">
+        {paginatedCoins.map((coin) => (
+          <Col key={coin.id}>
+            <CryptocurrencyCard
+              coin={coin}
+              handleSave={() => handleSave(coin.id)}
+            />
+          </Col>
+        ))}
+      </Row>
+
       {isLoading && <p>Loading more coins...</p>}
       {!isLoading && paginatedCoins.length === coins.length && (
-        <p>No more coins to load.</p>
+        <p className={styles.infoText}>No more coins to load.</p>
       )}
-      {!isLoading && loadMore && paginatedCoins.length !== coins.length && (
-        <button onClick={loadNext} disabled={isLoading}>
-          Load more
+      <div className={styles.btnWrapper}>
+        {!isLoading && loadMore && paginatedCoins.length !== coins.length && (
+          <button
+            onClick={loadNext}
+            disabled={isLoading}
+            className="btn btn-sm btn-success m-1"
+          >
+            Load more
+          </button>
+        )}
+        <button
+          className="btn btn-sm btn-primary m-1"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          Scroll to Top
         </button>
-      )}
-      <button
-        onClick={() => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-      >
-        Scroll to Top
-      </button>
-      <ConfirmationModal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        onConfirm={handleConfirmSave}
-      />
-    </div>
+        <ConfirmationModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={handleConfirmSave}
+        />
+      </div>
+    </Container>
   );
 };
