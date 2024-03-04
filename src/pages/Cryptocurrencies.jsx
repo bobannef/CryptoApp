@@ -48,7 +48,6 @@ export const Cryptocurrencies = () => {
   const handleSearch = (event) => {
     const searchTerm = event.target.value;
     setSearchCoin(searchTerm);
-    setPage(1);
 
     if (searchTerm === "") {
       setCoins(totalCoins);

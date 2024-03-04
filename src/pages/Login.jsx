@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { checkEmail, checkPassword } from "../components/Validator";
 import styles from "../styles/register.module.css";
 import { AuthContext } from "../context/AuthContext";
@@ -16,6 +16,17 @@ export const Login = () => {
 
   const { logIn } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const existingUsers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (existingUsers && existingUsers.length > 0) {
+      const firstUser = existingUsers[0];
+      setFormData({
+        email: firstUser.email,
+        password: firstUser.password,
+      });
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     e.preventDefault();

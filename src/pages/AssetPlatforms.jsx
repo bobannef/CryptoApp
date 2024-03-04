@@ -42,7 +42,6 @@ export const AssetPlatforms = () => {
   const handleSearch = (event) => {
     const searchTerm = event.target.value;
     setSearchPlatform(searchTerm);
-    setPage(1);
 
     if (searchTerm === "") {
       setPlatforms(totalPlatforms);
