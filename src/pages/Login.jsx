@@ -51,6 +51,7 @@ export const Login = () => {
       }
     } else {
       alert("No users registered yet. Please register first.");
+      navigate("/register");
     }
   };
 
@@ -73,7 +74,7 @@ export const Login = () => {
             value={formData.email}
             onChange={handleInputChange}
           />
-          {emailErrors.length > 0 && (
+          {formData.email && emailErrors.length > 0 && (
             <div className={`${styles.msg}`}>{emailErrors.join(", ")}</div>
           )}
         </div>
@@ -92,7 +93,7 @@ export const Login = () => {
             value={formData.password}
             onChange={handleInputChange}
           />
-          {passwordErrors.length > 0 && (
+          {formData.password && passwordErrors.length > 0 && (
             <div className={`${styles.msg}`}>{passwordErrors.join(", ")}</div>
           )}
         </div>
